@@ -1,6 +1,12 @@
-require('dotenv').config();
+//Process to read and expand terminal variable from .env file
+const dotenv = require('dotenv').config();
+const dotenvExpand = require("dotenv-expand");
+
+dotenvExpand.expand(dotenv);
+
 const MongoClient = require('mongodb').MongoClient;
 const fs = require('fs');
+
 
 // MongoDB connection URL with authentication options
 let url = `${process.env.MONGO_URL}`;
