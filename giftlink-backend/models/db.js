@@ -1,5 +1,7 @@
 // db.js
-require('dotenv').config();
+const dotenv = require('dotenv').config();
+const dotenvExpand = require("dotenv-expand");
+dotenvExpand.expand(dotenv);
 const MongoClient = require('mongodb').MongoClient;
 
 // MongoDB connection URL with authentication options
@@ -20,26 +22,26 @@ async function connectToDatabase() {
         console.log("connected to MongoDB server");
 
         dbInstance = client.db(dbName);
-        
-        //test
-        const collection = dbInstance.listCollections.toArray();
-        for (col in collection){
-            console.log(col.find());
-        }
 
+        // const collection = dbInstance.collection("gifts");
+        // const gifts = await collection.find({});
+        // console.log({gifts})
+
+        // const cursor = await gifts.toArray();
+        // console.log({cursor});
 
     }catch(error){
-        console.error(error)
+        console.error(error);
     }
     finally{
         await client.close();
         console.log("connetion closed ");
 
-
     }
     
+    // return dbInstance;
+    console.log("returning gitfdb database");
     return dbInstance;
-
 
 
 }
