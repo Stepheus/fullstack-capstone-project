@@ -8,7 +8,10 @@ lerna-debug.log*
 .pnpm-debug.log*
 
 # node web_modules
-*node_modules/
+**/node_modules/
+
+# environment variable
+**/.env
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

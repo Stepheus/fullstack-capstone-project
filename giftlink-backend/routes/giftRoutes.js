@@ -6,19 +6,21 @@ const connectToDatabase = require("../models/db");
 const collectionName = 'gifts';
 
 router.get('/', async (req, res) => {
+    console.log("Inside giftRoute get")
     try {
         // Task 1: Connect to MongoDB and store connection to db constant
-        const db = connectToDatabase();
-        console.log("database connected")
-        console.log(db)
+        console.log("getting db from connectToDatabase")
+        const db = await connectToDatabase();
+       
 
-        // Task 2: use the collection() method to retrieve the gift collection
+        // // Task 2: use the collection() method to retrieve the gift collection
+        console.log("getting collection");
         const collection = db.collection(collectionName);
 
-        // Task 3: Fetch all gifts using the collection.find method. Chain with toArray method to convert to JSON array
-        const gifts = await collection.find({}).toArray();
+        // // Task 3: Fetch all gifts using the collection.find method. Chain with toArray method to convert to JSON array
+        let gifts = await collection.find({}).toArray();
 
-        // Task 4: return the gifts using the res.json method
+        // // Task 4: return the gifts using the res.json method
         res.json({gifts});
     } catch (e) {
         console.error('Error fetching gifts:', e);
@@ -64,5 +66,6 @@ router.post('/', async (req, res, next) => {
         next(e);
     }
 });
+
 
 module.exports = router;
