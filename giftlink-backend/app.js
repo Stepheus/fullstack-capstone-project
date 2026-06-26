@@ -39,15 +39,15 @@ const logger = require('./logger');
 
 app.use(pinoHttp({ logger }));
 
-// Use Routes
-// Gift API Task 2: add the giftRoutes to the server by using the app.use() method.
-//{{insert code here}}
+// Routes
+// Gift API giftRoutes
 
 const giftRouter = require("./routes/giftRoutes");
 app.use("/api/gifts", giftRouter);
 
-// Search API Task 2: add the searchRoutes to the server by using the app.use() method.
-//{{insert code here}}
+// Search API searchRoutes
+const searchRoutes = require("./routes/searchRoutes");
+app.use("/api/search", searchRoutes);
 
 
 // Global Error Handler
