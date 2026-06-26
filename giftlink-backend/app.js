@@ -36,6 +36,7 @@ app.use(express.json());
 const pinoHttp = require('pino-http');
 const logger = require('./logger');
 
+
 app.use(pinoHttp({ logger }));
 
 // Use Routes
@@ -43,7 +44,7 @@ app.use(pinoHttp({ logger }));
 //{{insert code here}}
 
 const giftRouter = require("./routes/giftRoutes");
-app.use("api/gifts", giftRouter);
+app.use("/api/gifts", giftRouter);
 
 // Search API Task 2: add the searchRoutes to the server by using the app.use() method.
 //{{insert code here}}
