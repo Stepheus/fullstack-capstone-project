@@ -20,10 +20,10 @@ router.get('/', async (req, res, next) => {
 
         // Task 3: Add other filters to the query
         if (req.query.category) {
-            query.category = req.query.category
+            query.category = req.query.category;
         }
         if (req.query.condition) {
-            query.condition = req.query.condition
+            query.condition = req.query.condition;
         }
         if (req.query.age_years) {
             query.age_years = { $lte: parseInt(req.query.age_years) };
