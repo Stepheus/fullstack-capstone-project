@@ -10,7 +10,7 @@ function MainPage() {
     const fetchGifts = async () => {
        try {
             let url = `${urlConfig.backendUrl}/api/gifts`;
-            console.log("sending request to backend to get all gifts");
+            console.log(`sending request to get all gifts backend @ ${url}`);
             const response = await fetch(url);
 
             if(!response.ok){
@@ -41,7 +41,7 @@ function MainPage() {
     const formatDate = (timestamp) => {
         const date = new Date(timestamp * 1000);
         return date.toLocaleDateString("default", {month: "long", day:"numeric", year:"numeric"});
-      };
+    };
 
     const getConditionClass = (condition) => {
         return condition === "New" ? "list-group-item-success" : "list-group-item-warning";
@@ -68,11 +68,8 @@ function MainPage() {
                                 <p className={`card-text ${getConditionClass(gift.condition)}`}>
                                 {gift.condition}
                                 </p>
-
-                                {/* // Task 6: Display gift image or placeholder */}
-                                {/* // Write your code below this line */}
-                                
-
+                                {/* //------------ format date from gift value ------------------------------------ */}
+                                <p className='card-text'>{formatDate(gift.date_added)}</p>
                                 <button onClick={() => goToDetailsPage(gift.id)} className="btn btn-primary">
                                     View Details
                                 </button>

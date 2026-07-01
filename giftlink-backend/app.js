@@ -13,6 +13,14 @@ const {loadData} = require("./util/import-mongo/index");
 app.use("*",cors());
 const port = 3060;
 
+//load data to database
+console.log("Loading data to database");
+loadData().then(()=>{
+    pinoLogger.info('Loading data to DB');
+}).catch((error)=>{
+    console.error("Failed to load data to database");
+})
+
 // Connect to MongoDB; we just do this one time
 connectToDatabase().then(() => {
     pinoLogger.info('Connected to DB');
@@ -22,17 +30,7 @@ connectToDatabase().then(() => {
 
 app.use(express.json());
 
-// Route files
-// Gift API Task 1: import the giftRoutes and store in a constant called giftroutes
-//{{insert code here}}
-
-
-
-
-// Search API Task 1: import the searchRoutes and store in a constant called searchRoutes
-//{{insert code here}}
-
-
+//Pino Logger
 const pinoHttp = require('pino-http');
 const logger = require('./logger');
 
