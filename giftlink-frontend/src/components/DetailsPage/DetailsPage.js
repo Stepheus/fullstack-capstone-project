@@ -42,7 +42,7 @@ function DetailsPage() {
             behavior: 'smooth'
         });
 
-    }, [productId]);
+    }, [productId, navigate]);
 
     //Handle back click
     const handleBackClick = () => {
@@ -96,21 +96,15 @@ function DetailsPage() {
                         </div>
 
                             {/* gift details*/}
-                                <p><strong>Category: {gift.category}</strong> 
-                        {/* insert code here  */}
-                        </p>
-                                <p><strong>Condition: {gift.condition}</strong> 
-                        {/* insert code here  */}
-                                </p>
-                                <p><strong>Date Added: {gift.date_added}</strong> 
-                        {/* insert code here  */}
-                                </p>
-                                <p><strong>Age (Years): {gift.age_years}</strong> 
-                        {/* insert code here  */}
-                                </p>
-                                <p><strong>Description: {gift.description}</strong> 
-                        {/* insert code here  */}
-                                </p>
+                                <p><strong>Category: </strong> {gift.category}</p>
+                                
+                                <p><strong>Condition: </strong> {gift.condition} </p>
+
+                                <p><strong>Date Added:</strong>  {gift.date_added} </p>
+
+                                <p><strong>Age (Years): </strong> {gift.age_years} </p>
+
+                                <p><strong>Description: </strong> {gift.description} </p>
                     </div>
                 </div>
 
