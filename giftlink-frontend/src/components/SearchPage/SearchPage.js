@@ -119,17 +119,20 @@ function SearchPage() {
 
                         </div>
                     </div>
+                    <div className='search-bar'>
+                        <input type="text" 
+                            placeholder='Search for items...'
+                            className="form-control search-input"
+                            id="query"
+                            value={searchQuery}
+                            onChange ={(e)=> setSearchQuery(e.target.value)}
+                        />
 
-                    <input type="text" 
-                        placeholder='Search for items...'
-                        className="form-control search-input"
-                        id="query"
-                        value={searchQuery}
-                        onChange ={(e)=> setSearchQuery(e.target.value)}
-                   />
+                        {/* Trigger button search*/}
+                        <button className='btn btn-primary search-button' onCLick={handleSearch}>Search</button>
 
-                    {/* Trigger button search*/}
-                    <button className='btn btn-primary search-button' onCLick={handleSearch}>Search</button>
+                    </div>
+                 
                 
                     {/* search Results*/}
                     <div className="search-results-card mt-4">
