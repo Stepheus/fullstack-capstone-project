@@ -95,7 +95,7 @@ function SearchPage() {
                             </select>
 
                             {/*Condition Select*/}
-                             <label htmlFor='conditionSelect'>Category</label>
+                             <label htmlFor='conditionSelect'>Condition</label>
                             <select id="conditionSelect" className='form-control my-1'>
                                 <option value="">All</option>
                                 {conditions.map(condition => (
@@ -115,18 +115,21 @@ function SearchPage() {
                                 onChange ={e=> setAgeRange(e.target.value)}
                             />
 
-                            <label htmlFor="query">Search Query</label>
-                            <input type="text" 
-                                className="form-control search-input"
-                                id="query"
-                                value={searchQuery}
-                                onChange ={(e)=> setSearchQuery(e.target.value)}
-                            />
-                            {/* Trigger button search*/}
-                            <button className='btn btn-primary search-button' onCLick={handleSearch}>Search</button>
+                           
 
                         </div>
                     </div>
+
+                    <input type="text" 
+                        placeholder='Search for items...'
+                        className="form-control search-input"
+                        id="query"
+                        value={searchQuery}
+                        onChange ={(e)=> setSearchQuery(e.target.value)}
+                   />
+
+                    {/* Trigger button search*/}
+                    <button className='btn btn-primary search-button' onCLick={handleSearch}>Search</button>
                 
                     {/* search Results*/}
                     <div className="search-results-card mt-4">
