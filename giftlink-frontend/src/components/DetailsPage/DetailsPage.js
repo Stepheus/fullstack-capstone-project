@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './DetailsPage.css';
+import { urlConfig } from '../../config';
 
 function DetailsPage() {
     const navigate = useNavigate();
@@ -12,16 +13,15 @@ function DetailsPage() {
 	useEffect(() => {
         const authenticationToken = sessionStorage.getItem('auth-token');
         if (!authenticationToken) {
-			// Task 1: Check for authentication and redirect
-            {{insert code here}}
+			navigate("./app/login");
         }
 
         // get the gift to be rendered on the details page
         const fetchGift = async () => {
             try {
 				// Task 2: Fetch gift details
-                const response ={{insert code here}}
-                if (!response.ok) {
+                const response = await fetch(`${urlConfig.backendUrl}/api/gifts/${productId}`)
+                if (!response.ok) { 
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
@@ -35,16 +35,19 @@ function DetailsPage() {
 
         fetchGift();
 
-		// Task 3: Scroll to top on component mount
-		{{ insert code here }}
+		//Scroll to top on component mount
+		window.scrollTo({
+            top:0,
+            left:0,
+            behavior: 'smooth'
+        });
 
     }, [productId]);
 
-
+    //Handle back click
     const handleBackClick = () => {
-		// Task 4: Handle back click
-		{{ insert code here }}
-	};
+		navigate(-1);
+    };
 
 	//The comments have been hardcoded for this project.
     const comments = [
@@ -75,54 +78,57 @@ function DetailsPage() {
     if (error) return <div>Error: {error}</div>;
     if (!gift) return <div>Gift not found</div>;
 
-return (
-        <div className="container mt-5">
-            <button className="btn btn-secondary mb-3" onClick={handleBackClick}>Back</button>
-            <div className="card product-details-card">
-                <div className="card-header text-white">
-                    <h2 className="details-title">{gift.name}</h2>
-                </div>
-                <div className="card-body">
-                    <div className="image-placeholder-large">
-                        {gift.image ? (
-			// Task 5: Display gift image
-			/*insert code here*/
-                        ) : (
-                            <div className="no-image-available-large">No Image Available</div>
-                        )}
+    return (
+            <div className="container mt-5">
+                <button className="btn btn-secondary mb-3" onClick={handleBackClick}>Back</button>
+                <div className="card product-details-card">
+                    <div className="card-header text-white">
+                        <h2 className="details-title">{gift.name}</h2>
                     </div>
-                    // Task 6: Display gift details
-                    	<p><strong>Category:</strong> 
-				{/* insert code here  */}
-			</p>
-                    	<p><strong>Condition:</strong> 
-				{/* insert code here  */}
-                    	</p>
-                    	<p><strong>Date Added:</strong> 
-				{/* insert code here  */}
-                        </p>
-                    	<p><strong>Age (Years):</strong> 
-				{/* insert code here  */}
-                    	</p>
-                    	<p><strong>Description:</strong> 
-				{/* insert code here  */}
-                    	</p>
-                </div>
-            </div>
-            <div className="comments-section mt-4">
-                <h3 className="mb-3">Comments</h3>
-				// Task 7: Render comments section by using the map function to go through all the comments
-				{{ insert code here }} => (
-                    <div key={index} className="card mb-3">
-                        <div className="card-body">
-                            <p className="comment-author"><strong>{comment.author}:</strong></p>
-                            <p className="comment-text">{comment.comment}</p>
+                    <div className="card-body">
+                        <div className="image-placeholder-large">
+                            {gift.image ? (
+                                 <img src={gift.image} alt={gift.name} className="product-image-large"/>
+                                
+                            ) : (
+                                <div className="no-image-available-large"> No Image Available</div>
+                            )}
                         </div>
+
+                            {/* gift details*/}
+                                <p><strong>Category: {gift.category}</strong> 
+                        {/* insert code here  */}
+                        </p>
+                                <p><strong>Condition: {gift.condition}</strong> 
+                        {/* insert code here  */}
+                                </p>
+                                <p><strong>Date Added: {gift.date_added}</strong> 
+                        {/* insert code here  */}
+                                </p>
+                                <p><strong>Age (Years): {gift.age_years}</strong> 
+                        {/* insert code here  */}
+                                </p>
+                                <p><strong>Description: {gift.description}</strong> 
+                        {/* insert code here  */}
+                                </p>
                     </div>
-                ))}
+                </div>
+
+                <div className="comments-section mt-4">
+                    <h3 className="mb-3">Comments</h3>
+                    {comments.map((comment, index)=>{
+                        <div key={index} className="card mb-3">
+                            <div className="card-body">
+                                <p className="comment-author"><strong>{comment.author}:</strong></p>
+                                <p className="comment-text">{comment.comment}</p>
+                            </div>
+                        </div>
+
+                    })}
+                </div>
+
             </div>
-        </div>
-    );
+        );
 }
 
 export default DetailsPage;

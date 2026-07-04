@@ -6,6 +6,7 @@ import MainPage from './components/MainPage/MainPage';
 import RegisterPage from "./components/RegisterPage/RegisterPage";
 import LoginPage from  "./components/LoginPage/LoginPage"
 import Navbar from './components/Navbar/Navbar';
+import DetailsPage from './components/DetailsPage/DetailsPage';
 
 //Css
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,6 +24,8 @@ function App() {
           <Route path="/app" element={<MainPage />} />
           <Route path="/app/register" element={<RegisterPage/>}/>
           <Route path="app/login" element={<LoginPage/>}/>
+          <Route path="app/product/:productId" element={<DetailsPage/>}/>
+
         </Routes>
         </>
   );
