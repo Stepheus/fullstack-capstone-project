@@ -8,8 +8,9 @@ function LoginPage() {
     const[password, setPassword] = useState("");
 
     // login function
-    const handleLogin = ()=>{
+    const handleLogin = async (e)=>{
         console.log("Inside handleLogin");
+        e.preventDefault();
     }
 
         return (
@@ -28,7 +29,7 @@ function LoginPage() {
                     onChange={(e)=> setEmail(e.target.value)}/>
                 </div>
 
-                <div className="mb-3">
+                <div className="mb-4">
                     <input type="password"
                     id="password"
                     className="form-control"
@@ -38,7 +39,6 @@ function LoginPage() {
                 </div>
 
                 <button className='btn btn-primary w-100 mb-3' onClick={(handleLogin)}>Login</button>
-          {/* insert code here to create a button that performs the `handleLogin` function on click */}
                 <p className="mt-4 text-center">
                     New here? <a href="/app/register" className="text-primary">Register Here</a>
                 </p>
