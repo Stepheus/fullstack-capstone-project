@@ -6,7 +6,6 @@ const connectToDatabase = require("../models/db");
 const collectionName = 'gifts';
 
 router.get('/', async (req, res) => {
-    console.log("Inside giftRoute get")
     try {
         // Task 1: Connect to MongoDB and store connection to db constant
         console.log("getting db from connectToDatabase")

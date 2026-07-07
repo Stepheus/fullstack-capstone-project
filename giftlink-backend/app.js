@@ -29,6 +29,7 @@ connectToDatabase().then(() => {
 
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 //Pino Logger
 const pinoHttp = require('pino-http');
@@ -46,6 +47,11 @@ app.use("/api/gifts", giftRouter);
 // Search API searchRoutes
 const searchRoutes = require("./routes/searchRoutes");
 app.use("/api/search", searchRoutes);
+
+
+// auth Route
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
 
 
 // Global Error Handler
