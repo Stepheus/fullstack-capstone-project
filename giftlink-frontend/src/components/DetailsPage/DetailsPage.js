@@ -13,7 +13,7 @@ function DetailsPage() {
 	useEffect(() => {
         const authenticationToken = sessionStorage.getItem('auth-token');
         if (!authenticationToken) {
-			navigate("./app/login");
+			navigate("/app/login");
         }
 
         // get the gift to be rendered on the details page

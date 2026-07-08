@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {urlConfig} from '../../config';
@@ -7,13 +7,18 @@ import "./SearchPage.css";
 
 function SearchPage() {
 
+
    //Search query state variables   
     const [searchQuery, setSearchQuery] = useState("");
     const [ageRange, setAgeRange] = useState("");
     const [searchResults, setSearchResults] = useState("");
 
-    const categories = ['Living', 'Bedroom', 'Bathroom', 'Kitchen', 'Office'];
+    const categories = ['Living Room', 'Bedroom', 'Bathroom', 'Kitchen', 'Office'];
     const conditions = ['New', 'Like New', 'Older'];
+
+    const categoryRef = useRef(null);   //to select category input
+    const conditionRef = useRef(null); //to select condition input
+
 
     useEffect(() => {
         // fetch all products
@@ -45,9 +50,11 @@ function SearchPage() {
         const queryParams = new URLSearchParams({
         name: searchQuery,
         age_years: ageRange,
-        category: document.getElementbyId("categorySelect").value,
-        condition: document.getElementbyId("conditionSelect").value,
+        category: categoryRef.current.value,
+        condition: conditionRef.current.value,
         }).toString();
+
+        console.log({queryParams});
 
         try {
             const searchUrl = `${baseUrl}${queryParams}`;
@@ -70,7 +77,7 @@ function SearchPage() {
     const navigate = useNavigate();
 
     const goToDetailsPage = (productId) => {
-        navigate(`app/product/:${productId}`);
+        navigate(`/app/product/:${productId}`);
     };
 
 
@@ -86,7 +93,7 @@ function SearchPage() {
 
                             {/*Category Select*/}
                             <label htmlFor='categorySelect'>Category</label>
-                            <select id="categorySelect" className='form-control my-1'>
+                            <select ref={categoryRef} id="categorySelect" className='form-control my-1'>
                                 <option value="">All</option>
                                 {categories.map(category=> (
                                     <option key= {category} value={category} className='dropdown-filter'>{category}</option>
@@ -96,7 +103,7 @@ function SearchPage() {
 
                             {/*Condition Select*/}
                              <label htmlFor='conditionSelect'>Condition</label>
-                            <select id="conditionSelect" className='form-control my-1'>
+                            <select ref={conditionRef} id="conditionSelect" className='form-control my-1'>
                                 <option value="">All</option>
                                 {conditions.map(condition => (
                                     <option key= {condition} value={condition}>{condition}</option>
@@ -112,7 +119,7 @@ function SearchPage() {
                                 min="1"
                                 max="10"
                                 value={ageRange}
-                                onChange ={e=> setAgeRange(e.target.value)}
+                                onChange={(e)=> setAgeRange(e.target.value)}
                             />
 
                            
@@ -129,7 +136,7 @@ function SearchPage() {
                         />
 
                         {/* Trigger button search*/}
-                        <button className='btn btn-primary search-button' onCLick={handleSearch}>Search</button>
+                        <button className='btn btn-primary search-button' onClick={handleSearch}>Search</button>
 
                     </div>
                  
