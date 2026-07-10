@@ -1,7 +1,11 @@
-import React, {useState} from "react"; 
+import React, {useEffect, useState} from "react"; 
+import { json, useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
+import { urlConfig } from "../../config";
+import { useAppContext } from "../../context/AuthContext";
 
 function RegisterPage(){
+
 
     //user inputs state variables
     const[firstName, setFirstName] = useState("");
@@ -9,9 +13,50 @@ function RegisterPage(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    //Error state
+    const[showErr, setShowErr] = useState("");
+
+    //Navigation
+    const navigate = useNavigate();
+
+    //context 
+    const {setIsLoggedIn} = useAppContext();
+
+   
+
     const handleRegister = async ()=>{
-        console.log("Register invoked");
-    }
+        //Back end url and data
+        const registerUrl = `${urlConfig.backendUrl}/api/auth/register?`
+        const userInfo = {firstName, lastName, email, password};
+
+        //Send data
+        const registerResponse = await fetch(registerUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify(userInfo),
+        });
+
+        if (registerResponse.status === 409){
+            setShowErr(registerResponse.message || "Error: User already exists");
+        }
+
+        //Response handling
+         const registeredInfo = await registerResponse.json();
+        if (registeredInfo.error){
+            setShowErr(registeredInfo.error);
+        }
+        if (registeredInfo.authtoken && registeredInfo.email){
+            sessionStorage.setItem("auth-token", registeredInfo.authtoken);
+            sessionStorage.setItem("name", firstName);
+            sessionStorage.setItem("email", registeredInfo.email)
+            setIsLoggedIn(true);
+            navigate("/app");
+        }
+      
+      
+    };
 
 
     return (
@@ -48,6 +93,7 @@ function RegisterPage(){
                         </div>              
 
                             <button className="bttn bttn-primary w-100 mb-3" onClick={handleRegister}>Register</button>
+                            <div className="text-danger">{showErr}</div>
 
                         <p className="mt-4 text-center"> 
                             Already a member? <a href="/app/login" className="text-primary">Login</a>

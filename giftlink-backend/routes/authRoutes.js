@@ -49,9 +49,10 @@ router.post("/register", async(req, res)=>{
         };
 
         const authtoken = jwt.sign(payload, JWT_SECRET);
+        const email = req.body.email;
 
         pinoLogger.info("User registered successfully");
-        res.json(`User ${req.body.email} has been registered`);
+        res.json({authtoken, email});
     
 
     }catch(error){
