@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './LoginPage.css';
 import { urlConfig } from '../../config';
 import { useAppContext } from '../../context/AuthContext';
@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 function LoginPage() {
 
   const navigate = useNavigate();
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
    useEffect(()=>{
       if(sessionStorage.getItem("auth-token")){
@@ -44,7 +46,10 @@ function LoginPage() {
             setShowErr(loginInfo.error || "User not found!");
           }else if (loginResponse.status === 401){
             console.log("error" + loginResponse.error);
-            setShowErr(loginInfo.error || "Incorrect Password!");
+            setShowErr(loginInfo.error || "Incorrect Password! Please try again");
+            passwordRef.current.focus();
+            passwordRef.current.value = "";
+            setPassword("");
           }
 
           console.log({loginInfo})
@@ -71,6 +76,7 @@ function LoginPage() {
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email</label>
                     <input type="email" 
+                    ref={emailRef}
                     id="email" 
                     className="form-control"
                     placeholder="Enter your email"
@@ -81,6 +87,7 @@ function LoginPage() {
                 <div className="mb-4">
                     <input type="password"
                     id="password"
+                    ref={passwordRef}
                     className="form-control"
                     placeholder="Enter your password"
                     value={password}
