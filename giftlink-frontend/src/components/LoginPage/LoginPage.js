@@ -42,20 +42,19 @@ function LoginPage() {
           if (loginResponse.status === 404){
             console.log("error " + loginResponse.error);
             setShowErr(loginInfo.error || "User not found!");
-          };
+          }else if (loginResponse.status === 401){
+            console.log("error" + loginResponse.error);
+            setShowErr(loginInfo.error || "Incorrect Password!");
+          }
 
           console.log({loginInfo})
           if (loginInfo.authtoken && loginInfo.name){
-            sessionStorage.setItem("authtoken", loginInfo.authtoken);
-            sessionStorage.setItem("email", email);
+            sessionStorage.setItem("auth-token", loginInfo.authtoken);
             sessionStorage.setItem("name", loginInfo.name);
 
             setIsLoggedIn(true);
             navigate("/app");
           }
-
-          
-
 
         }catch(error){
           console.error("Error loging in");
@@ -87,7 +86,7 @@ function LoginPage() {
                     value={password}
                     onChange={(e)=>{setPassword(e.target.value)}}/>
                 </div>
-                <div><span style={{color:'red',height:'.5cm',display:'block',fontStyle:'italic',fontSize:'12px', marginBottom:"8px"}}>{showErr}</span></div>
+                {showErr&&<div><span style={{color:'red',height:'.5cm',display:'block',fontStyle:'italic',fontSize:'12px', marginBottom:"8px"}}>{showErr}</span></div>}      
                 <button className='btn btn-primary w-100 mb-3' onClick={(handleLogin)}>Login</button>
                 <p className="mt-4 text-center">
                     New here? <a href="/app/register" className="text-primary">Register Here</a>

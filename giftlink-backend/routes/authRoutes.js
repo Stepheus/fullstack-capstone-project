@@ -72,14 +72,14 @@ router.post("/login", async (req, res)=>{
         const user = await userCollection.findOne({email: req.body.email});
         if (!user){
             pinoLogger.error("User not found");
-            return res.status(404).json({error: "User not found"});
+            return res.status(404).json({error: "User not found!"});
         }
         
         //Check password
         let result = await bcrypt.compare(req.body.password, user.password);
         if (!result){
             pinoLogger.error("Passwords do not match");
-            return res.status(401).json({error: "Wrong password"});
+            return res.status(401).json({error: "Incorrect password!"});
         }
 
         const userName = user.firstName;
