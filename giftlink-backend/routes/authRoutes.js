@@ -83,7 +83,6 @@ router.post("/login", async (req, res)=>{
         }
 
         const userName = user.firstName;
-        const userEmail = user.email;
 
         //Create token
        let payload = {
@@ -93,7 +92,7 @@ router.post("/login", async (req, res)=>{
        }
 
        const authtoken = jwt.sign(payload, JWT_SECRET);
-       res.json({authtoken:authtoken, email: user.email});
+       res.json({authtoken:authtoken, name: userName});
 
     }catch(error){
         console.log(error)
