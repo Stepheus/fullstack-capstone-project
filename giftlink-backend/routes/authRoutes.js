@@ -79,7 +79,7 @@ router.post("/login", async (req, res)=>{
         let result = await bcrypt.compare(req.body.password, user.password);
         if (!result){
             pinoLogger.error("Passwords do not match");
-            return res.status(401).json({error: "Incorrect password! Please try again"});
+            return res.status(401).json({error: "Incorrect password! Please try again."});
         }
 
         const userName = user.firstName;

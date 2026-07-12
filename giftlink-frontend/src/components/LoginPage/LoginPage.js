@@ -46,7 +46,7 @@ function LoginPage() {
             setShowErr(loginInfo.error || "User not found!");
           }else if (loginResponse.status === 401){
             console.log("error" + loginResponse.error);
-            setShowErr(loginInfo.error || "Incorrect Password! Please try again");
+            setShowErr(loginInfo.error || "Incorrect Password! Please try again.");
             passwordRef.current.focus();
             passwordRef.current.value = "";
             setPassword("");
@@ -56,6 +56,7 @@ function LoginPage() {
           if (loginInfo.authtoken && loginInfo.name){
             sessionStorage.setItem("auth-token", loginInfo.authtoken);
             sessionStorage.setItem("name", loginInfo.name);
+            sessionStorage.setItem("email", email);
 
             setIsLoggedIn(true);
             navigate("/app");
