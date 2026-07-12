@@ -92,7 +92,7 @@ router.post("/login", async (req, res)=>{
        }
 
        const authtoken = jwt.sign(payload, JWT_SECRET);
-       res.json({authtoken:authtoken, name: userName});
+       res.json({authtoken:authtoken, name:userName});
 
     }catch(error){
         console.log(error)
