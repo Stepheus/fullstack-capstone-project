@@ -100,6 +100,69 @@ router.post("/login", async (req, res)=>{
 
 });
 
+//Update validation inputs
+const updateRules = [
+     body("name")
+        .trim()
+        .notEmpty().withMessage("Name is required")
+        .isAlphanumeric().withMessage("Name must be alpha numeric"),
+    body("email")
+        .trim()
+        .isEmail().withMessage("Please Provide a valid email")
+        .normalizeEmail()
+]
+
+router.put('/update', updateRules, async (req, res) => {
+
+    //Validation handling
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        pinoLogger.error("Validation errors in update request: ", errors.array());
+        return res.status(400).json({errors: errors.array()});
+    }; 
+
+    const email = req.headers.email;
+    if (!email){
+        pinoLogger.error("Email not found in the request headers");
+        return res.status(400).json({error: "Email not found in the request headers"});
+    };
+
+    try {
+
+        //connect to users database
+        const db = await connectToDatabase();
+        const userCollection = await db.collection("users");
+
+        // find user credentials in database
+        const existingUser = await userCollection.findOne({email: email});
+
+        console.log("Old document: " , {existingUser});
+
+        existingUser.firstName = req.body.name;
+        existingUser.updatedAt = new Date();
+
+        const updatedUser = await userCollection.findOneAndUpdate(
+            { email },
+            { $set: existingUser },
+            { returnDocument: 'after' }
+        );
+
+        console.log("New document: ", {updatedUser});
+
+        const payload = {
+                    user: {
+                        id: updatedUser._id.toString(),
+                    },
+                };
+        const authtoken = jwt.sign(payload, JWT_SECRET);
+
+        res.json({authtoken});
+    } catch (e) {
+        pinoLogger.error(e);
+         return res.status(500).send('Internal server error');
+    }
+});
+
 
 
 module.exports = router;
