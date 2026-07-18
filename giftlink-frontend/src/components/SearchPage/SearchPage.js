@@ -148,7 +148,7 @@ function SearchPage() {
                                 <div key={product.id} className="card mb-3">
                                     <img src={product.image} alt={product.name} className='card-img-top'/>
                                     <div className='card-body'>
-                                        <h5 className='card-title'></h5>
+                                        <h5 className='card-title'>{product.name}</h5>
                                         <p className='card-text'>{product.description.slice(0, 100)}...</p>
                                     </div>
                                     <div className='card-footer'>
