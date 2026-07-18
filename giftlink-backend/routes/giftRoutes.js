@@ -8,7 +8,7 @@ const collectionName = 'gifts';
 router.get('/', async (req, res) => {
     try {
         // Task 1: Connect to MongoDB and store connection to db constant
-        console.log("getting db from connectToDatabase")
+        console.log("getting db from connectToDatabase");
         const db = await connectToDatabase();
        
 
