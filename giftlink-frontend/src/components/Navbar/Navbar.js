@@ -40,13 +40,13 @@ export default function Navbar() {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand mx-3" href="/">GiftLink</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                  <span class="navbar-toggler-icon"></span>
             </button>
             
             {/*Navbar links to home page and gifts*/}
             <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul className="navbar-nav mx-auto">
+                <ul className="navbar-nav mx-auto text-center">
                     <li className="nav-item">
                         <a className="nav-link" href='/home.html' >Home</a>
 
