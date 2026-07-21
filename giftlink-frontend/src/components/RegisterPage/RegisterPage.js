@@ -26,8 +26,7 @@ function RegisterPage(){
 
     const handleRegister = async ()=>{
         //Back end url and data
-        console.log("clicked");
-        const registerUrl = `${urlConfig.backendUrl}/api/auth/register`
+        const registerUrl = `${urlConfig.backendUrl}/api/auth/registe`
         const userInfo = {firstName, lastName, email, password};
 
         //Send data
