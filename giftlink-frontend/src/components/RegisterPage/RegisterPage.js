@@ -1,5 +1,5 @@
 import React, {useState} from "react"; 
-import {useNavigate } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
 import { urlConfig } from "../../config";
 import { useAppContext } from "../../context/AuthContext";
@@ -26,7 +26,8 @@ function RegisterPage(){
 
     const handleRegister = async ()=>{
         //Back end url and data
-        const registerUrl = `${urlConfig.backendUrl}/api/auth/registe`
+        console.log("clicked");
+        const registerUrl = `${urlConfig.backendUrl}/api/auth/register`
         const userInfo = {firstName, lastName, email, password};
 
         //Send data
@@ -96,7 +97,7 @@ function RegisterPage(){
                             <div className="text-danger">{showErr}</div>
 
                         <p className="mt-4 text-center"> 
-                            Already a member? <a href="/app/login" className="text-primary">Login</a>
+                            Already a member? <Link to="/app/login" className="text-primary">Login</Link>
                         </p>
                     </div> 
                 </div>

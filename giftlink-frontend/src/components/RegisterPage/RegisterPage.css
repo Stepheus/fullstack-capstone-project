@@ -16,8 +16,9 @@
     border-radius: 0.25rem;
 }
 
-.register-card .btn-primary {
+.register-card .bttn-primary {
     background-color: #0056b3;
+    color: #fff;
     border: none;
 }
 
