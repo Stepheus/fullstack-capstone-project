@@ -10,7 +10,12 @@ const connectToDatabase = require('./models/db');
 const {loadData} = require("./util/import-mongo/index");
 
 
-app.use("*",cors());
+app.use("*", cors({
+    origin: 'http://localhost:3000', // Swap with your actual frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}
+));
 const port = 3060;
 
 //load data to database

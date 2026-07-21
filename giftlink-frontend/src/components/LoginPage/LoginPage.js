@@ -32,7 +32,10 @@ function LoginPage() {
       
         e.preventDefault();
         //send data 
+
         try{
+
+          const bearerToken = null;
           const loginResponse = await fetch(loginUrl, { 
             method: "POST",
             headers: {
