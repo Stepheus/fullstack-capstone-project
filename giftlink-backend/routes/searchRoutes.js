@@ -32,7 +32,6 @@ router.get('/', async (req, res, next) => {
 
         // Task 4: Fetch the gift based on the previous options
         let gifts = await collection.find(query).toArray();
-        console.log(gifts);
 
 
 
