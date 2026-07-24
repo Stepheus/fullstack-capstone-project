@@ -1,4 +1,3 @@
-version: 'version'
 services:
   giftbackend:
     image: stephen406/giftbackend:1.0
